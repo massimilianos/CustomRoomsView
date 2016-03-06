@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Domus Alberti</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="stanza">Stanza</string>
+
+    <string name="ufficio">Ufficio</string>
+    <string name="uno">Uno</string>
+    <string name="tre">Tre</string>
+    <string name="quattro">Quattro</string>
+    <string name="cinque">Cinque</string>
+    <string name="sei">Sei</string>
+
+    <string name="temperature">Temperature</string>
+    <string name="humidity">Humidity</string>
+
+    <string name="temperature_cut">Temp</string>
+    <string name="humidity_cut">Humid</string>
+</resources>

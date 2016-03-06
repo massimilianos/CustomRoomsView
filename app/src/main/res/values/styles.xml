@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Table">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:shrinkColumns">*</item>
+        <item name="android:stretchColumns">*</item>
+    </style>
+
+    <style name="Cell">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="Cell.Header">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dip</item>
+        <item name="android:layout_margin">6dip</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+</resources>
