@@ -1,62 +1,51 @@
 package it.max.android.customroomsview.activity;
 
-import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.ImageView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.InputStream;
+import java.util.Properties;
 
 import it.max.android.customroomsview.R;
-import it.max.android.customroomsview.model.Stanza;
+import it.max.android.customroomsview.fragments.ListaStanzeFragment;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity {
+    private Context context = null;
+    private Properties properties = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Stanza[] stanze = {
-                new Stanza("Ufficio", R.drawable.num_0, 22, 33, R.drawable.temperature, R.drawable.humidity),
-                new Stanza("Uno", R.drawable.num_1, 21, 34, R.drawable.temperature, R.drawable.humidity),
-                new Stanza("Tre", R.drawable.num_3, 20, 35, R.drawable.temperature, R.drawable.humidity),
-                new Stanza("Quattro", R.drawable.num_4, 23, 32, R.drawable.temperature, R.drawable.humidity),
-                new Stanza("Cinque", R.drawable.num_5, 24, 31, R.drawable.temperature, R.drawable.humidity),
-                new Stanza("Sei", R.drawable.num_6, 19, 30, R.drawable.temperature, R.drawable.humidity)
-        };
-        final ArrayList<Stanza> listaStanze = new ArrayList<Stanza>();
-        for (int i = 0; i < stanze.length; ++i) {
-            listaStanze.add(stanze[i]);
+        try {
+            context = getApplicationContext();
+
+            Resources resources = this.getResources();
+            AssetManager assetManager = resources.getAssets();
+
+            InputStream inputStream = assetManager.open("domusalberti.properties");
+            properties = new Properties();
+            properties.load(inputStream);
+        } catch(Exception e) {
+            Toast.makeText(context, "ERRORE LETTURA FILE PROPERTIES (MAIN ACTIVITY)!!!", Toast.LENGTH_SHORT).show();
+            System.exit(-1);
         }
 
-        ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String,Object>>();
+        String webserverAddress = properties.getProperty("webserverAddress");
+        String webserverPort = properties.getProperty("webserverPort");
+        String webserverSitePath = properties.getProperty("webserverSitePath");
+        String arduinoAddress = properties.getProperty("arduinoAddress");
+        String arduinoPort = properties.getProperty("arduinoPort");
 
-        for(int i = 0; i < listaStanze.size(); i++) {
-            Stanza s = listaStanze.get(i);
+        ImageView imgDomusAlberti = (ImageView)findViewById(R.id.imgDomusAlberti);
+        imgDomusAlberti.setImageResource(R.drawable.logo_domus_alberti);
 
-            HashMap<String,Object> stanzaMap = new HashMap<String, Object>();
-
-//            stanzaMap.put("nomeStanza", s.getNomeStanza());
-            stanzaMap.put("imgStanza", s.getImgStanza());
-            stanzaMap.put("temperatura", s.getTemperatura() + "°");
-            stanzaMap.put("imgTemperatura", s.getImgTemperatura());
-            stanzaMap.put("umidita", s.getUmidita() + "%");
-            stanzaMap.put("imgUmidita", s.getImgUmidita());
-            data.add(stanzaMap);
-        }
-
-        String[] from = { /*"nomeStanza", */"imgStanza", "temperatura","imgTemperatura","umidita","imgUmidita" };
-        int[] to = {/*R.id.nomeStanza, */R.id.imgStanza, R.id.temperature, R.id.imgTemperature, R.id.humidity, R.id.imgHumidity};
-
-        SimpleAdapter adapter=new SimpleAdapter (
-                this,
-                data,
-                R.layout.listastanze,
-                from,
-                to);
-
-        ((ListView)findViewById(R.id.stanze)).setAdapter(adapter);
+        ListaStanzeFragment listaStanzeFragment = (ListaStanzeFragment) getFragmentManager().findFragmentById(R.id.lista_stanze_fragment);
     }
 }
