@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import it.max.android.customroomsview.constants.ArduinoServerConstants;
+import it.max.android.customroomsview.constants.RestConstants;
 import it.max.android.customroomsview.properties.ArduinoServerProperties;
 import it.max.android.customroomsview.properties.WebServerProperties;
 
@@ -22,27 +24,21 @@ public class InternetUtils {
     private WebServerProperties webServerProperties;
     private ArduinoServerProperties arduinoServerProperties;
 
-    public InternetUtils() {}
-
-    public InternetUtils(String webserverAddress, String webserverPort, String webserverSitePath) {
-        webServerProperties = new WebServerProperties();
-
-        webServerProperties.setWebserverAddress(webserverAddress);
-        webServerProperties.setWebserverPort(webserverPort);
-        webServerProperties.setWebserverSitePath(webserverSitePath);
-    }
-
-    public InternetUtils(String arduinoAddress, String arduinoPort) {
-        arduinoServerProperties = new ArduinoServerProperties();
-
-        arduinoServerProperties.setArduinoAddress(arduinoAddress);
-        arduinoServerProperties.setArduinoPort(arduinoPort);
+    public InternetUtils(char type, String address, String port) {
+        if (type == 'W') {
+            webServerProperties = new WebServerProperties();
+            webServerProperties.setWebserverAddress(address);
+            webServerProperties.setWebserverPort(port);
+        } else if (type == 'A') {
+            arduinoServerProperties = new ArduinoServerProperties();
+            arduinoServerProperties.setArduinoAddress(address);
+            arduinoServerProperties.setArduinoPort(port);
+        }
     }
 
     public String creaURLWebServer() {
         String URLWebServer = "http://" + webServerProperties.getWebserverAddress()
-                              + ":"     + webServerProperties.getWebserverPort()
-                              + "/"     + webServerProperties.getWebserverSitePath();
+                              + ":"     + webServerProperties.getWebserverPort();
 
         return(URLWebServer);
     }
@@ -145,15 +141,14 @@ public class InternetUtils {
     public Float getTempHumid(char type, InternetUtils iu, String rootServer, String room) {
         Float result = null;
         String response = null;
-        String URL = rootServer + "/" + room + "/";
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         if (type == 'T') {
-            response = iu.getRestResponse(URL + "temperature");
+            response = iu.getRestResponse(rootServer + RestConstants.TEMPERATURE);
         } else if (type == 'H') {
-            response = iu.getRestResponse(URL + "humidity");
+            response = iu.getRestResponse(rootServer + RestConstants.HUMIDITY);
         }
 
         result = (response != null && !response.isEmpty()) ? Float.parseFloat(response) : null;

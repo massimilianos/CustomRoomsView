@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import it.max.android.customroomsview.R;
+import it.max.android.customroomsview.constants.WebServerConstants;
 import it.max.android.customroomsview.model.Stanza;
 import it.max.android.customroomsview.utils.InternetUtils;
 
@@ -75,13 +76,10 @@ public class ListaStanzeFragment extends ListFragment {
             System.exit(-1);
         }
 
-        String webserverAddress = properties.getProperty("webserverAddress");
-        String webserverPort = properties.getProperty("webserverPort");
-        String webserverSitePath = properties.getProperty("webserverSitePath");
-        String arduinoAddress = properties.getProperty("arduinoAddress");
-        String arduinoPort = properties.getProperty("arduinoPort");
+        String webserverAddress = WebServerConstants.WEB_SERVER_ADDRESS_CASA;
+        String webserverPort = WebServerConstants.WEB_SERVER_PORT_CASA;
 
-        InternetUtils iu = new InternetUtils(webserverAddress, webserverPort, webserverSitePath);
+        InternetUtils iu = new InternetUtils('W', webserverAddress, webserverPort);
         String rootWebServer = iu.creaURLWebServer();
 
         Stanza[] stanze = {
