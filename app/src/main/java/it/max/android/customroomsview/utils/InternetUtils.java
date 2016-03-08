@@ -7,6 +7,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +17,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import it.max.android.customroomsview.constants.ArduinoServerConstants;
+import it.max.android.customroomsview.constants.JSONConstants;
 import it.max.android.customroomsview.constants.RestConstants;
 import it.max.android.customroomsview.properties.ArduinoServerProperties;
 import it.max.android.customroomsview.properties.WebServerProperties;
@@ -151,7 +153,19 @@ public class InternetUtils {
             response = iu.getRestResponse(rootServer + RestConstants.HUMIDITY);
         }
 
-        result = (response != null && !response.isEmpty()) ? Float.parseFloat(response) : null;
+        String valueReaded = null;
+        try {
+            JSONObject reader = new JSONObject(response);
+            if (type == 'T') {
+                valueReaded = reader.getString(JSONConstants.TEMPERATURE);
+            } else if (type == 'H') {
+                valueReaded = reader.getString(JSONConstants.HUMIDITY);
+            }
+        } catch(JSONException je) {
+            System.out.println(je.getMessage());
+        }
+
+        result = (valueReaded != null && !valueReaded.isEmpty()) ? Float.parseFloat(valueReaded) : null;
 
         return (result);
     }
