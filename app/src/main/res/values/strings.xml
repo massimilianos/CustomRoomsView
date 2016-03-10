@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Domus Alberti</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="empty_data">- - -</string>
+
+    <string name="menu_aggiorna">Aggiorna</string>
+    <string name="menu_opzioni">Opzioni</string>
 
     <string name="stanza">Stanza</string>
 

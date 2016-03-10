@@ -36,7 +36,7 @@
             android:paddingRight="15dp"/>
 
         <TextView
-            android:text="@string/temperature_cut"
+            android:text="@string/empty_data"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginRight="5dip"
             android:layout_toRightOf="@id/imgTemperature"
@@ -62,7 +62,7 @@
             android:paddingRight="15dp"/>
 
         <TextView
-            android:text="@string/humidity_cut"
+            android:text="@string/empty_data"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginRight="5dip"
             android:layout_toRightOf="@id/imgHumidity"

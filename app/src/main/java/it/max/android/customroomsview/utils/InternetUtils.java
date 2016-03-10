@@ -140,8 +140,8 @@ public class InternetUtils {
         return sb.toString();
     }
 
-    public Float getTempHumid(char type, InternetUtils iu, String rootServer, String room) {
-        Float result = null;
+    public String getTempHumid(char type, InternetUtils iu, String rootServer, String room) {
+        String result = null;
         String response = null;
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -153,19 +153,22 @@ public class InternetUtils {
             response = iu.getRestResponse(rootServer + RestConstants.HUMIDITY);
         }
 
-        String valueReaded = null;
         try {
             JSONObject reader = new JSONObject(response);
+
             if (type == 'T') {
-                valueReaded = reader.getString(JSONConstants.TEMPERATURE);
+                result = reader.getString(JSONConstants.TEMPERATURE);
             } else if (type == 'H') {
-                valueReaded = reader.getString(JSONConstants.HUMIDITY);
+                result = reader.getString(JSONConstants.HUMIDITY);
+            }
+
+            if (result == null || result.equals("0")) {
+                result = JSONConstants.EMPTY_OR_NULL_DATA;
             }
         } catch(JSONException je) {
             System.out.println(je.getMessage());
+            result = JSONConstants.EMPTY_OR_NULL_DATA;
         }
-
-        result = (valueReaded != null && !valueReaded.isEmpty()) ? Float.parseFloat(valueReaded) : null;
 
         return (result);
     }

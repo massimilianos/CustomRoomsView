@@ -5,15 +5,15 @@ import java.io.Serializable;
 public class Stanza implements Serializable {
     private String nomeStanza;
     private int    imgStanza;
-    private float  temperatura;
+    private String  temperatura;
     private int    imgTemperatura;
-    private float  umidita;
+    private String  umidita;
     private int    imgUmidita;
 
     public Stanza(String nomeStanza,
                   int    imgStanza,
-                  float  temperatura,
-                  float  umidita,
+                  String  temperatura,
+                  String  umidita,
                   int    imgTemperatura,
                   int    imgUmidita) {
         super();
@@ -41,11 +41,11 @@ public class Stanza implements Serializable {
         this.imgStanza = imgStanza;
     }
 
-    public float getTemperatura() {
+    public String getTemperatura() {
         return temperatura;
     }
 
-    public void setTemperatura(float temperatura) {
+    public void setTemperatura(String temperatura) {
         this.temperatura = temperatura;
     }
 
@@ -57,11 +57,11 @@ public class Stanza implements Serializable {
         this.imgTemperatura = imgTemperatura;
     }
 
-    public float getUmidita() {
+    public String getUmidita() {
         return umidita;
     }
 
-    public void setUmidita(float umidita) {
+    public void setUmidita(String umidita) {
         this.umidita = umidita;
     }
 
