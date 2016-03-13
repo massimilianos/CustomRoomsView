@@ -148,8 +148,10 @@ public class InternetUtils {
         StrictMode.setThreadPolicy(policy);
 
         if (type == 'T') {
+            iu.getRestResponse(rootServer + RestConstants.TEMPERATURE_READ);
             response = iu.getRestResponse(rootServer + RestConstants.TEMPERATURE);
         } else if (type == 'H') {
+            iu.getRestResponse(rootServer + RestConstants.HUMIDITY_READ);
             response = iu.getRestResponse(rootServer + RestConstants.HUMIDITY);
         }
 

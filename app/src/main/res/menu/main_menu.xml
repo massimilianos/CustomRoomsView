@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_refresh"
+        android:icon="@drawable/ic_action_refresh"
+        android:title="@string/action_aggiorna"
+        android:alphabeticShortcut="r"
+        android:orderInCategory="1"
+        android:showAsAction="always" />
+
     <item
-        android:id="@+id/menu_aggiorna"
-        android:title="@string/menu_aggiorna" />
-    <item
-        android:id="@+id/menu_opzioni"
-        android:title="@string/menu_opzioni" />
+        android:id="@+id/menu_options"
+        android:icon="@drawable/ic_checkin"
+        android:title="@string/menu_opzioni"
+        android:alphabeticShortcut="o"
+        android:orderInCategory="2"
+        android:showAsAction="always" />
 </menu>

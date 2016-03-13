@@ -3,7 +3,7 @@
 
     <string name="empty_data">- - -</string>
 
-    <string name="menu_aggiorna">Aggiorna</string>
+    <string name="action_aggiorna">Aggiorna</string>
     <string name="menu_opzioni">Opzioni</string>
 
     <string name="stanza">Stanza</string>

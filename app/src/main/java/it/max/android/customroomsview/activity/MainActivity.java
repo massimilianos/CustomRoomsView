@@ -1,41 +1,62 @@
 package it.max.android.customroomsview.activity;
 
 import android.app.ActionBar;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ListActivity;
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.graphics.Color;
+
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.BackgroundColorSpan;
-import android.text.style.ForegroundColorSpan;
+
 import android.view.Menu;
-import android.view.MenuInflater;
+
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import java.io.InputStream;
 import java.util.Properties;
 
 import it.max.android.customroomsview.R;
 import it.max.android.customroomsview.fragments.ListaStanzeFragment;
+import it.max.android.customroomsview.model.DHT11Data;
 
 public class MainActivity extends ListActivity {
     private Context context = null;
     private Properties properties = null;
 
+    private MenuItem menuItem;
+
     @Override
     public boolean onCreateOptionsMenu(Menu mainMenu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, mainMenu);
+        getMenuInflater().inflate(R.menu.main_menu, mainMenu);
 
-        return super.onCreateOptionsMenu(mainMenu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        Context context = getApplicationContext();
+
+        switch(itemId) {
+            case R.id.action_refresh:
+                Toast.makeText(context, "Aggiornamento in corso...", Toast.LENGTH_LONG).show();
+
+                ListaStanzeFragment listaStanzeFragment = (ListaStanzeFragment) getFragmentManager()
+                                                                                .findFragmentById(R.id.lista_stanze_fragment);
+                listaStanzeFragment.refreshListaStanzeView();
+
+                break;
+            case R.id.menu_options:
+                Toast.makeText(context, "Apertura opzioni...", Toast.LENGTH_LONG).show();
+                break;
+            default:
+                Toast.makeText(context, "Default Action", Toast.LENGTH_LONG).show();
+                break;
+        }
+
+        return true;
     }
 
     @Override
@@ -43,9 +64,10 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_CUSTOM);
+
         ImageView imgDomusAlberti = (ImageView)findViewById(R.id.imgDomusAlberti);
         imgDomusAlberti.setImageResource(R.drawable.logo_domus_alberti);
-
-        ListaStanzeFragment listaStanzeFragment = (ListaStanzeFragment) getFragmentManager().findFragmentById(R.id.lista_stanze_fragment);
     }
 }
