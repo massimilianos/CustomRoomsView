@@ -1,8 +1,6 @@
 package it.max.android.customroomsview.activity;
 
 import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.app.ListActivity;
 import android.content.Context;
 
@@ -12,14 +10,12 @@ import android.view.Menu;
 
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import java.util.Properties;
 
 import it.max.android.customroomsview.R;
 import it.max.android.customroomsview.fragments.ListaStanzeFragment;
-import it.max.android.customroomsview.model.DHT11Data;
 
 public class MainActivity extends ListActivity {
     private Context context = null;

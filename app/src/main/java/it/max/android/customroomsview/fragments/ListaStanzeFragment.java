@@ -3,27 +3,16 @@ package it.max.android.customroomsview.fragments;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Properties;
 
 import it.max.android.customroomsview.R;
-import it.max.android.customroomsview.constants.WebServerConstants;
-import it.max.android.customroomsview.model.DHT11Data;
-import it.max.android.customroomsview.model.Stanza;
-import it.max.android.customroomsview.utils.InternetUtils;
+import it.max.android.customroomsview.data.DHT11Data;
+import it.max.android.customroomsview.model.DHT11;
 
 public class ListaStanzeFragment extends ListFragment {
     private SimpleAdapter adapterListaStanzeView;
@@ -31,14 +20,16 @@ public class ListaStanzeFragment extends ListFragment {
     public void createDataListaStanzeView() {
         Activity currentActivity = getActivity();
 
-        DHT11Data dht11Data = DHT11Data.creaDatiListViewStanze();
+        DHT11Data dht11Data = new DHT11Data();
+
+        DHT11 dht11 = dht11Data.creaDatiListViewStanze();
 
         adapterListaStanzeView = new SimpleAdapter (
                 currentActivity,
-                dht11Data.getData(),
+                dht11.getData(),
                 R.layout.lista_stanze_data,
-                dht11Data.getFrom(),
-                dht11Data.getTo());
+                dht11.getFrom(),
+                dht11.getTo());
 
         setListAdapter(adapterListaStanzeView);
     }
