@@ -43,13 +43,14 @@ public class MainActivity extends ListActivity {
                                                                                 .findFragmentById(R.id.lista_stanze_fragment);
                 listaStanzeFragment.refreshListaStanzeView();
 
-                break;
+                Toast.makeText(context, "Aggiornamento completato.", Toast.LENGTH_LONG).show();
+            break;
             case R.id.menu_options:
                 Toast.makeText(context, "Apertura opzioni...", Toast.LENGTH_LONG).show();
-                break;
+            break;
             default:
                 Toast.makeText(context, "Default Action", Toast.LENGTH_LONG).show();
-                break;
+            break;
         }
 
         return true;

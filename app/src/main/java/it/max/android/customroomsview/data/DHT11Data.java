@@ -32,41 +32,76 @@ public class DHT11Data {
 
         RelayData relayData = new RelayData();
 
-        Integer numeroStanze = StanzeConstants.NUMERO_STANZE;
+        // AGGIUNGO UNA STANZA CHE E' L'UFFICIO
+        Integer numeroStanze = StanzeConstants.NUMERO_STANZE + 1;
 
-        Integer[] statoStanze = new Integer[numeroStanze];
-        for(int indice = 0; indice < numeroStanze; indice++) {
+        // INIZIALIZZO L'ARRAY CHE CONTERRA' I DATI DELLE STANZE
+        Stanza[] stanze = new Stanza[numeroStanze];
+
+        // INSERISCO LA STANZA "UFFICIO"
+        stanze[0] = new Stanza( R.drawable.num_0,
+                                getTempHumid('T', iu, rootServer),
+                                getTempHumid('H', iu, rootServer),
+                                R.drawable.temperature, R.drawable.humidity);
+
+        // INIZIO DALLA STANZA 1 PERCHE' LA STANZA "0" E' L'UFFICIO
+        for(int indice = 1; indice < numeroStanze; indice++) {
             Integer stato = relayData.getRelayState(iu, rootServer, getRandomNumberInRange(1, 4));
 
-            statoStanze[indice] = R.drawable.num_1_green;
-        }
+            Integer idImgNumeroStanza = null;
+            switch(indice) {
+                case 1:
+                    if (stato == 0) {
+                        idImgNumeroStanza = R.drawable.num_1_green;
+                    } else if (stato == 1) {
+                        idImgNumeroStanza = R.drawable.num_1_red;
+                    }
+                break;
 
-        Stanza[] stanze = {
-            new Stanza( R.drawable.num_0,
-                        getTempHumid('T', iu, rootServer),
-                        getTempHumid('H', iu, rootServer),
-                        R.drawable.temperature, R.drawable.humidity),
-            new Stanza( R.drawable.num_1_green,
-                        getTempHumid('T', iu, rootServer),
-                        getTempHumid('H', iu, rootServer),
-                        R.drawable.temperature, R.drawable.humidity),
-            new Stanza( R.drawable.num_3_green,
-                        getTempHumid('T', iu, rootServer),
-                        getTempHumid('H', iu, rootServer),
-                        R.drawable.temperature, R.drawable.humidity),
-            new Stanza( R.drawable.num_4_green,
-                        getTempHumid('T', iu, rootServer),
-                        getTempHumid('H', iu, rootServer),
-                        R.drawable.temperature, R.drawable.humidity),
-            new Stanza( R.drawable.num_5_green,
-                        getTempHumid('T', iu, rootServer),
-                        getTempHumid('H', iu, rootServer),
-                        R.drawable.temperature, R.drawable.humidity),
-            new Stanza( R.drawable.num_6_green,
-                        getTempHumid('T', iu, rootServer),
-                        getTempHumid('H', iu, rootServer),
-                        R.drawable.temperature, R.drawable.humidity)
-        };
+                case 2:
+                break;
+
+                case 3:
+                    if (stato == 0) {
+                        idImgNumeroStanza = R.drawable.num_3_green;
+                    } else if (stato == 1) {
+                        idImgNumeroStanza = R.drawable.num_3_red;
+                    }
+                break;
+
+                case 4:
+                    if (stato == 0) {
+                        idImgNumeroStanza = R.drawable.num_4_green;
+                    } else if (stato == 1) {
+                        idImgNumeroStanza = R.drawable.num_4_red;
+                    }
+                break;
+
+                case 5:
+                    if (stato == 0) {
+                        idImgNumeroStanza = R.drawable.num_5_green;
+                    } else if (stato == 1) {
+                        idImgNumeroStanza = R.drawable.num_5_red;
+                    }
+                break;
+
+                case 6:
+                    if (stato == 0) {
+                        idImgNumeroStanza = R.drawable.num_6_green;
+                    } else if (stato == 1) {
+                        idImgNumeroStanza = R.drawable.num_6_red;
+                    }
+                break;
+            }
+
+            // PER ORA ELIMINO LA STANZA "2" PERCHE' NON ESISTE ESSENDO LA SALA COLAZIONE
+            if (indice != StanzeConstants.SALA_COLAZIONE) {
+                stanze[indice] = new Stanza(idImgNumeroStanza,
+                                            getTempHumid('T', iu, rootServer),
+                                            getTempHumid('H', iu, rootServer),
+                                            R.drawable.temperature, R.drawable.humidity);
+            }
+        }
 
         ArrayList<Stanza> listaStanze = new ArrayList<Stanza>();
 
@@ -76,17 +111,22 @@ public class DHT11Data {
 
         ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String,Object>>();
 
-        for(int i = 0; i < listaStanze.size(); i++) {
-            Stanza s = listaStanze.get(i);
+        for(int indice = 0; indice < listaStanze.size(); indice++) {
+            // TOLGO LA SALA COLAZIONE DAL TOTALE DELLE STANZE
+            if (indice == StanzeConstants.SALA_COLAZIONE) {
+                continue;
+            }
+
+            Stanza stanza = listaStanze.get(indice);
 
             HashMap<String, Object> stanzaMap = new HashMap<String, Object>();
 
-//          stanzaMap.put("nomeStanza", s.getNomeStanza());
-            stanzaMap.put("imgStanza", s.getImgStanza());
-            stanzaMap.put("temperatura", s.getTemperatura() + "°");
-            stanzaMap.put("imgTemperatura", s.getImgTemperatura());
-            stanzaMap.put("umidita", s.getUmidita() + "%");
-            stanzaMap.put("imgUmidita", s.getImgUmidita());
+//          stanzaMap.put("nomeStanza", stanza.getNomeStanza());
+            stanzaMap.put("imgStanza", stanza.getImgStanza());
+            stanzaMap.put("temperatura", stanza.getTemperatura() + "°");
+            stanzaMap.put("imgTemperatura", stanza.getImgTemperatura());
+            stanzaMap.put("umidita", stanza.getUmidita() + "%");
+            stanzaMap.put("imgUmidita", stanza.getImgUmidita());
             data.add(stanzaMap);
         }
 
