@@ -16,16 +16,20 @@ import java.util.Properties;
 
 import it.max.android.customroomsview.R;
 import it.max.android.customroomsview.fragments.ListaStanzeFragment;
+import it.max.android.customroomsview.task.UpdateTask;
 
 public class MainActivity extends ListActivity {
     private Context context = null;
     private Properties properties = null;
 
+    private Menu mymenu;
     private MenuItem menuItem;
 
     @Override
     public boolean onCreateOptionsMenu(Menu mainMenu) {
         getMenuInflater().inflate(R.menu.main_menu, mainMenu);
+
+        mymenu = mainMenu;
 
         return true;
     }
@@ -39,11 +43,12 @@ public class MainActivity extends ListActivity {
             case R.id.action_refresh:
                 Toast.makeText(context, "Aggiornamento in corso...", Toast.LENGTH_LONG).show();
 
+                new UpdateTask(this).execute();
+/*
                 ListaStanzeFragment listaStanzeFragment = (ListaStanzeFragment) getFragmentManager()
                                                                                 .findFragmentById(R.id.lista_stanze_fragment);
                 listaStanzeFragment.refreshListaStanzeView();
-
-                Toast.makeText(context, "Aggiornamento completato.", Toast.LENGTH_LONG).show();
+*/
             break;
             case R.id.menu_options:
                 Toast.makeText(context, "Apertura opzioni...", Toast.LENGTH_LONG).show();
@@ -54,6 +59,15 @@ public class MainActivity extends ListActivity {
         }
 
         return true;
+    }
+
+    public void resetUpdating() {
+        MenuItem m = mymenu.findItem(R.id.action_refresh);
+        if(m.getActionView() != null) {
+            // Remove the animation.
+            m.getActionView().clearAnimation();
+            m.setActionView(null);
+        }
     }
 
     @Override
