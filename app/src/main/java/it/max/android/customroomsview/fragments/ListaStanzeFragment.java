@@ -27,21 +27,21 @@ public class ListaStanzeFragment extends ListFragment {
 
         DHT11 dht11 = dht11Data.creaDatiListViewStanze();
 
-        adapterListaStanzeView = null;
+//        adapterListaStanzeView = null;
         adapterListaStanzeView = new SimpleAdapter (currentActivity,
                                                     dht11.getData(),
                                                     R.layout.lista_stanze_data,
                                                     dht11.getFrom(),
                                                     dht11.getTo());
 
-        setListAdapter(adapterListaStanzeView);
+//        setListAdapter(adapterListaStanzeView);
     }
 
     public void refreshListaStanzeView() {
         createDataListaStanzeView();
 
-        layoutListaStanzeView.removeAllViews();
-        layoutListaStanzeView.addView(listaStanzeView);
+//        layoutListaStanzeView.removeAllViews();
+//        layoutListaStanzeView.addView(listaStanzeView);
 
         setListAdapter(adapterListaStanzeView);
         adapterListaStanzeView.notifyDataSetChanged();
@@ -58,6 +58,7 @@ public class ListaStanzeFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         createDataListaStanzeView();
+        setListAdapter(adapterListaStanzeView);
     }
 
     @Override
