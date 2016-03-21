@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -15,6 +16,8 @@ import it.max.android.customroomsview.data.DHT11Data;
 import it.max.android.customroomsview.model.DHT11;
 
 public class ListaStanzeFragment extends ListFragment {
+    private ListView listaStanzeView;
+    private LinearLayout layoutListaStanzeView;
     private SimpleAdapter adapterListaStanzeView;
 
     public void createDataListaStanzeView() {
@@ -24,12 +27,12 @@ public class ListaStanzeFragment extends ListFragment {
 
         DHT11 dht11 = dht11Data.creaDatiListViewStanze();
 
-        adapterListaStanzeView = new SimpleAdapter (
-                currentActivity,
-                dht11.getData(),
-                R.layout.lista_stanze_data,
-                dht11.getFrom(),
-                dht11.getTo());
+        adapterListaStanzeView = null;
+        adapterListaStanzeView = new SimpleAdapter (currentActivity,
+                                                    dht11.getData(),
+                                                    R.layout.lista_stanze_data,
+                                                    dht11.getFrom(),
+                                                    dht11.getTo());
 
         setListAdapter(adapterListaStanzeView);
     }
@@ -37,6 +40,10 @@ public class ListaStanzeFragment extends ListFragment {
     public void refreshListaStanzeView() {
         createDataListaStanzeView();
 
+        layoutListaStanzeView.removeAllViews();
+        layoutListaStanzeView.addView(listaStanzeView);
+
+        setListAdapter(adapterListaStanzeView);
         adapterListaStanzeView.notifyDataSetChanged();
     }
 
@@ -58,8 +65,10 @@ public class ListaStanzeFragment extends ListFragment {
         View view = inflater.inflate(R.layout.lista_stanze_fragment, container, false);
         Context contextView = view.getContext();
 
-        ListView listaStanzeView = ((ListView)view.findViewById(R.id.lista_stanze_view));
+        listaStanzeView = ((ListView)view.findViewById(R.id.lista_stanze_view));
         Context contextListaStanzeView = listaStanzeView.getContext();
+
+        layoutListaStanzeView = (LinearLayout) listaStanzeView.findViewById(R.id.layout_lista_stanze_view);
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }

@@ -6,9 +6,12 @@ import android.content.Context;
 
 import android.os.Bundle;
 
+import android.view.LayoutInflater;
 import android.view.Menu;
 
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -43,12 +46,18 @@ public class MainActivity extends ListActivity {
             case R.id.action_refresh:
                 Toast.makeText(context, "Aggiornamento in corso...", Toast.LENGTH_LONG).show();
 
+                LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                ImageView iv = (ImageView)inflater.inflate(R.layout.iv_refresh, null);
+
+                Animation rotation = AnimationUtils.loadAnimation(this, R.anim.rotate_refresh);
+                rotation.setRepeatCount(Animation.INFINITE);
+
+                iv.startAnimation(rotation);
+
+                item.setActionView(iv);
+
                 new UpdateTask(this).execute();
-/*
-                ListaStanzeFragment listaStanzeFragment = (ListaStanzeFragment) getFragmentManager()
-                                                                                .findFragmentById(R.id.lista_stanze_fragment);
-                listaStanzeFragment.refreshListaStanzeView();
-*/
             break;
             case R.id.menu_options:
                 Toast.makeText(context, "Apertura opzioni...", Toast.LENGTH_LONG).show();
@@ -58,13 +67,12 @@ public class MainActivity extends ListActivity {
             break;
         }
 
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     public void resetUpdating() {
         MenuItem m = mymenu.findItem(R.id.action_refresh);
         if(m.getActionView() != null) {
-            // Remove the animation.
             m.getActionView().clearAnimation();
             m.setActionView(null);
         }
