@@ -19,8 +19,8 @@ import it.max.android.customroomsview.model.Stanza;
 import it.max.android.customroomsview.utils.InternetUtils;
 
 public class DHT11Data {
-    private static String serverAddress = ServerConnectionConstants.SERVER_ADDRESS_CASA;
-    private static String serverPort = ServerConnectionConstants.SERVER_PORT_CASA;
+    private static String serverAddress = ServerConnectionConstants.SERVER_ADDRESS;
+    private static String serverPort = ServerConnectionConstants.SERVER_PORT;
 
     private static InternetUtils iu = new InternetUtils(serverAddress, serverPort);
     private static String rootServer = iu.creaURLServer();
@@ -159,10 +159,10 @@ public class DHT11Data {
         StrictMode.setThreadPolicy(policy);
 
         if (type == 'T') {
-            iu.getRestResponse(rootServer + RestConstants.TEMPERATURE_READ);
+//            iu.getRestResponse(rootServer + RestConstants.TEMPERATURE_READ);
             response = iu.getRestResponse(rootServer + RestConstants.TEMPERATURE);
         } else if (type == 'H') {
-            iu.getRestResponse(rootServer + RestConstants.HUMIDITY_READ);
+//            iu.getRestResponse(rootServer + RestConstants.HUMIDITY_READ);
             response = iu.getRestResponse(rootServer + RestConstants.HUMIDITY);
         }
 

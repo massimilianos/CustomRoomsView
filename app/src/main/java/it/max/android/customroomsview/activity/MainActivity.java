@@ -1,6 +1,8 @@
 package it.max.android.customroomsview.activity;
 
 import android.app.ActionBar;
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.ListActivity;
 import android.content.Context;
 
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.Properties;
@@ -21,7 +24,7 @@ import it.max.android.customroomsview.R;
 import it.max.android.customroomsview.fragments.ListaStanzeFragment;
 import it.max.android.customroomsview.task.UpdateTask;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends Activity {
     private Context context = null;
     private Properties properties = null;
 
@@ -40,12 +43,12 @@ public class MainActivity extends ListActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
 
-        Context context = getApplicationContext();
+        context = getApplicationContext();
 
         switch(itemId) {
             case R.id.action_refresh:
                 Toast.makeText(context, "Aggiornamento in corso...", Toast.LENGTH_LONG).show();
-
+/*
                 LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                 ImageView iv = (ImageView)inflater.inflate(R.layout.iv_refresh, null);
@@ -56,7 +59,7 @@ public class MainActivity extends ListActivity {
                 iv.startAnimation(rotation);
 
                 item.setActionView(iv);
-
+*/
                 new UpdateTask(this).execute();
             break;
             case R.id.menu_options:

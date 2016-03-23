@@ -17,8 +17,8 @@ import it.max.android.customroomsview.model.Stanza;
 import it.max.android.customroomsview.utils.InternetUtils;
 
 public class RelayData {
-    private static String serverAddress = ServerConnectionConstants.SERVER_ADDRESS_CASA;
-    private static String serverPort = ServerConnectionConstants.SERVER_PORT_CASA;
+    private static String serverAddress = ServerConnectionConstants.SERVER_ADDRESS;
+    private static String serverPort = ServerConnectionConstants.SERVER_PORT;
 
     private static InternetUtils iu = new InternetUtils(serverAddress, serverPort);
     private static String rootServer = iu.creaURLServer();
@@ -26,8 +26,10 @@ public class RelayData {
     public RelayData() {}
 
     public Integer getRelayState(InternetUtils iu, String rootServer, Integer relayNumber) {
+        String  url = null;
         Integer result = null;
         String  response = null;
+        String  relayState = null;
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -35,9 +37,11 @@ public class RelayData {
         try {
             JSONObject reader = null;
 
-            response = iu.getRestResponse(rootServer + "/relay" + relayNumber + "State");
+            relayState = "relay" + relayNumber + "State";
+            url = rootServer + "/" + relayState;
+            response = iu.getRestResponse(url);
             reader = new JSONObject(response);
-            result = Integer.valueOf(reader.getString("relay" + relayNumber + "State"));
+            result = Integer.valueOf(reader.getString(relayState));
 /*
             switch(relayNumber) {
                 case 1:

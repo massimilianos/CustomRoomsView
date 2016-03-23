@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import it.max.android.customroomsview.constants.RestConstants;
 import it.max.android.customroomsview.properties.ServerProperties;
 
 public class InternetUtils {
@@ -20,13 +21,14 @@ public class InternetUtils {
 
     public InternetUtils(String address, String port) {
         serverProperties = new ServerProperties();
-            serverProperties.setWebserverAddress(address);
-            serverProperties.setWebserverPort(port);
+        serverProperties.setWebserverAddress(address);
+        serverProperties.setWebserverPort(port);
     }
 
     public String creaURLServer() {
         String URLServer = "http://" + serverProperties.getWebserverAddress()
-                              + ":"  + serverProperties.getWebserverPort();
+                              + ":"  + serverProperties.getWebserverPort()
+                              + RestConstants.ROOT_REST;
 
         return(URLServer);
     }

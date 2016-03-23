@@ -1,8 +1,8 @@
 package it.max.android.customroomsview.constants;
 
 public class RestConstants {
-    public static final String ROOT_REST        = "";
-    public static final String ROOT_REST_AZ     = "/phprest/v1";
+//    public static final String ROOT_REST        = "";
+    public static final String ROOT_REST        = "/phprest/v1";  // AZ INFO
 
     public static final String OFFICE           = "/office";
     public static final String ROOM1            = "/room1";

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import it.max.android.customroomsview.R;
@@ -12,9 +13,10 @@ import it.max.android.customroomsview.fragments.ListaStanzeFragment;
 
 public class UpdateTask extends AsyncTask<Void, Void, Void> {
     private Context mCon;
+    ListView listaStanzeView;
 
     public UpdateTask(Context con) {
-        mCon = con;
+        this.mCon = con;
     }
 
     @Override
