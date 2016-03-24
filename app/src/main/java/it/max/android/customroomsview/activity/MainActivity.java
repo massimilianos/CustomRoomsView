@@ -8,6 +8,7 @@ import android.content.Context;
 
 import android.os.Bundle;
 
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 
@@ -24,7 +25,7 @@ import it.max.android.customroomsview.R;
 import it.max.android.customroomsview.fragments.ListaStanzeFragment;
 import it.max.android.customroomsview.task.UpdateTask;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
     private Context context = null;
     private Properties properties = null;
 

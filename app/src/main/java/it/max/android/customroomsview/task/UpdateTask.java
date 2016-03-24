@@ -12,20 +12,20 @@ import it.max.android.customroomsview.activity.MainActivity;
 import it.max.android.customroomsview.fragments.ListaStanzeFragment;
 
 public class UpdateTask extends AsyncTask<Void, Void, Void> {
-    private Context mCon;
+    private Context context;
     ListView listaStanzeView;
 
-    public UpdateTask(Context con) {
-        this.mCon = con;
+    public UpdateTask(Context context) {
+        this.context = context;
     }
 
     @Override
     protected Void doInBackground(Void... nope) {
         try {
-            FragmentManager fragmentManager = ((MainActivity) mCon).getFragmentManager();
+            FragmentManager fragmentManager = ((MainActivity) context).getFragmentManager();
 
             ListaStanzeFragment listaStanzeFragment = (ListaStanzeFragment) fragmentManager.findFragmentById(R.id.lista_stanze_fragment);
-            listaStanzeFragment.refreshListaStanzeView();
+            listaStanzeFragment.refreshListaStanzeView(context);
 
             return null;
         } catch (Exception e) {
@@ -35,8 +35,8 @@ public class UpdateTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void nope) {
-        Toast.makeText(mCon, "Aggiornamento completato.", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Aggiornamento completato.", Toast.LENGTH_LONG).show();
 
-        ((MainActivity) mCon).resetUpdating();
+        ((MainActivity) context).resetUpdating();
     }
 }

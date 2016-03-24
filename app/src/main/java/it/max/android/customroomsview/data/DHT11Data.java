@@ -27,9 +27,7 @@ public class DHT11Data {
 
     public DHT11Data() {}
 
-    public DHT11 creaDatiListViewStanze() {
-        DHT11 dht11 = new DHT11();
-
+    public ArrayList<Stanza> creaDatiListaStanze() {
         RelayData relayData = new RelayData();
 
         // AGGIUNGO UNA STANZA CHE E' L'UFFICIO
@@ -40,9 +38,9 @@ public class DHT11Data {
 
         // INSERISCO LA STANZA "UFFICIO"
         stanze[0] = new Stanza( R.drawable.num_0,
-                                getTempHumid('T', iu, rootServer),
-                                getTempHumid('H', iu, rootServer),
-                                R.drawable.temperature, R.drawable.humidity);
+                getTempHumid('T', iu, rootServer),
+                getTempHumid('H', iu, rootServer),
+                R.drawable.temperature, R.drawable.humidity);
 
         // INIZIO DALLA STANZA 1 PERCHE' LA STANZA "0" E' L'UFFICIO
         for(int indice = 1; indice < numeroStanze; indice++) {
@@ -59,6 +57,11 @@ public class DHT11Data {
                 break;
 
                 case 2:
+                    if (stato == 0) {
+                        idImgNumeroStanza = R.drawable.num_2_green;
+                    } else if (stato == 1) {
+                        idImgNumeroStanza = R.drawable.num_2_red;
+                    }
                 break;
 
                 case 3:
@@ -97,48 +100,23 @@ public class DHT11Data {
             // PER ORA ELIMINO LA STANZA "2" PERCHE' NON ESISTE ESSENDO LA SALA COLAZIONE
             if (indice != StanzeConstants.SALA_COLAZIONE) {
                 stanze[indice] = new Stanza(idImgNumeroStanza,
-                                            getTempHumid('T', iu, rootServer),
-                                            getTempHumid('H', iu, rootServer),
-                                            R.drawable.temperature, R.drawable.humidity);
+                        getTempHumid('T', iu, rootServer),
+                        getTempHumid('H', iu, rootServer),
+                        R.drawable.temperature,
+                        R.drawable.humidity);
             }
         }
 
         ArrayList<Stanza> listaStanze = new ArrayList<Stanza>();
 
-        for (int i = 0; i < stanze.length; ++i) {
-            listaStanze.add(stanze[i]);
-        }
-
-        ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String,Object>>();
-
-        for(int indice = 0; indice < listaStanze.size(); indice++) {
-            // TOLGO LA SALA COLAZIONE DAL TOTALE DELLE STANZE
-            if (indice == StanzeConstants.SALA_COLAZIONE) {
-                continue;
+        for (int indice = 0; indice < stanze.length; ++indice) {
+            // PER ORA ELIMINO LA STANZA "2" PERCHE' NON ESISTE ESSENDO LA SALA COLAZIONE
+            if (indice != StanzeConstants.SALA_COLAZIONE) {
+                listaStanze.add(stanze[indice]);
             }
-
-            Stanza stanza = listaStanze.get(indice);
-
-            HashMap<String, Object> stanzaMap = new HashMap<String, Object>();
-
-//          stanzaMap.put("nomeStanza", stanza.getNomeStanza());
-            stanzaMap.put("imgStanza", stanza.getImgStanza());
-            stanzaMap.put("temperatura", stanza.getTemperatura() + "°");
-            stanzaMap.put("imgTemperatura", stanza.getImgTemperatura());
-            stanzaMap.put("umidita", stanza.getUmidita() + "%");
-            stanzaMap.put("imgUmidita", stanza.getImgUmidita());
-            data.add(stanzaMap);
         }
 
-        dht11.setData(data);
-
-        String[] from = { /*"nomeStanza", */"imgStanza", "temperatura","imgTemperatura","umidita","imgUmidita" };
-        dht11.setFrom(from);
-
-        int[] to = {/*R.id.nomeStanza, */R.id.imgStanza, R.id.temperature, R.id.imgTemperature, R.id.humidity, R.id.imgHumidity};
-        dht11.setTo(to);
-
-        return(dht11);
+        return(listaStanze);
     }
 
     private int getRandomNumberInRange(int min, int max) {

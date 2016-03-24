@@ -3,17 +3,17 @@ package it.max.android.customroomsview.model;
 import java.io.Serializable;
 
 public class Stanza implements Serializable {
-    private int    imgStanza;
+    private Integer    imgStanza;
     private String temperatura;
-    private int    imgTemperatura;
+    private Integer    imgTemperatura;
     private String umidita;
-    private int    imgUmidita;
+    private Integer    imgUmidita;
 
-    public Stanza(int    imgStanza,
+    public Stanza(Integer    imgStanza,
                   String temperatura,
                   String umidita,
-                  int    imgTemperatura,
-                  int    imgUmidita) {
+                  Integer    imgTemperatura,
+                  Integer    imgUmidita) {
         super();
         this.imgStanza = imgStanza;
         this.temperatura = temperatura;
@@ -22,11 +22,11 @@ public class Stanza implements Serializable {
         this.imgUmidita = imgUmidita;
     }
 
-    public int getImgStanza() {
+    public Integer getImgStanza() {
         return imgStanza;
     }
 
-    public void setImgStanza(int imgStanza) {
+    public void setImgStanza(Integer imgStanza) {
         this.imgStanza = imgStanza;
     }
 
@@ -38,11 +38,11 @@ public class Stanza implements Serializable {
         this.temperatura = temperatura;
     }
 
-    public int getImgTemperatura() {
+    public Integer getImgTemperatura() {
         return imgTemperatura;
     }
 
-    public void setImgTemperatura(int imgTemperatura) {
+    public void setImgTemperatura(Integer imgTemperatura) {
         this.imgTemperatura = imgTemperatura;
     }
 
@@ -54,11 +54,11 @@ public class Stanza implements Serializable {
         this.umidita = umidita;
     }
 
-    public int getImgUmidita() {
+    public Integer getImgUmidita() {
         return imgUmidita;
     }
 
-    public void setImgUmidita(int imgUmidita) {
+    public void setImgUmidita(Integer imgUmidita) {
         this.imgUmidita = imgUmidita;
     }
 }

@@ -9,7 +9,7 @@
     android:background="#FFFFFF">
 
     <ListView
-        android:id="@+id/lista_stanze_view"
+        android:id="@android:id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="20dp">
