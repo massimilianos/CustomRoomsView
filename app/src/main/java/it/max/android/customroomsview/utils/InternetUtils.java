@@ -4,12 +4,14 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -69,7 +71,7 @@ public class InternetUtils {
         return(response);
     }
 
-    public String getRestResponse(String url) {
+    public String getRestResponse(String url) throws IOException, HttpHostConnectException {
         HttpClient httpclient = new DefaultHttpClient();
         String result = null;
         HttpGet httpget = new HttpGet(url);
@@ -85,8 +87,10 @@ public class InternetUtils {
                 result = convertStreamToString(instream);
             }
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (HttpHostConnectException hhce) {
+            throw new HttpHostConnectException(hhce.getHost(), new ConnectException(hhce.getMessage()));
+        } catch (IOException ioe) {
+            throw new IOException(ioe.getMessage());
         } finally {
             if (instream != null) {
                 try {

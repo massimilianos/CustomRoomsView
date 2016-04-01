@@ -75,8 +75,8 @@ public class RelayData {
                 break;
             }
 */
-        } catch(JSONException je) {
-            System.out.println(je.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
             result = null;
         }
 

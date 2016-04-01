@@ -27,6 +27,8 @@ public class UpdateTask extends AsyncTask<Void, Void, Void> {
             ListaStanzeFragment listaStanzeFragment = (ListaStanzeFragment) fragmentManager.findFragmentById(R.id.lista_stanze_fragment);
             listaStanzeFragment.refreshListaStanzeView(context);
 
+            Thread.sleep(5000);
+
             return null;
         } catch (Exception e) {
             return null;
@@ -37,6 +39,7 @@ public class UpdateTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void nope) {
         Toast.makeText(context, "Aggiornamento completato.", Toast.LENGTH_LONG).show();
 
-        ((MainActivity) context).resetUpdating();
+        ((MainActivity) context).setRefreshActionButtonState(false);
+//        ((MainActivity) context).resetUpdating();
     }
 }

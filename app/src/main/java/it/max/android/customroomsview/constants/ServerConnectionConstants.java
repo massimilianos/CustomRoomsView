@@ -6,6 +6,5 @@ public class ServerConnectionConstants {
 //    public static final String SERVER_ADDRESS   = "2.231.3.199";      // DOMUSALBERTI
 
     public static final String SERVER_PORT      = "80";               // AZ INFO
-//    public static final String SERVER_PORT      = "82";               // CASA
-//    public static final String SERVER_PORT      = "82";               // DOMUSALBERTI
+//    public static final String SERVER_PORT      = "82";               // CASA, DOMUSALBERTI
 }

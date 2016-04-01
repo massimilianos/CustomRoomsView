@@ -136,15 +136,15 @@ public class DHT11Data {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        if (type == 'T') {
-//            iu.getRestResponse(rootServer + RestConstants.TEMPERATURE_READ);
-            response = iu.getRestResponse(rootServer + RestConstants.TEMPERATURE);
-        } else if (type == 'H') {
-//            iu.getRestResponse(rootServer + RestConstants.HUMIDITY_READ);
-            response = iu.getRestResponse(rootServer + RestConstants.HUMIDITY);
-        }
-
         try {
+            if (type == 'T') {
+    //            iu.getRestResponse(rootServer + RestConstants.TEMPERATURE_READ);
+                response = iu.getRestResponse(rootServer + RestConstants.TEMPERATURE);
+            } else if (type == 'H') {
+    //            iu.getRestResponse(rootServer + RestConstants.HUMIDITY_READ);
+                response = iu.getRestResponse(rootServer + RestConstants.HUMIDITY);
+            }
+
             JSONObject reader = new JSONObject(response);
 
             if (type == 'T') {
@@ -156,8 +156,8 @@ public class DHT11Data {
             if (result == null || result.equals("0")) {
                 result = JSONConstants.EMPTY_OR_NULL_DATA;
             }
-        } catch(JSONException je) {
-            System.out.println(je.getMessage());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
             result = JSONConstants.EMPTY_OR_NULL_DATA;
         }
 

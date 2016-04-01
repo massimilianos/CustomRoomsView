@@ -61,6 +61,8 @@ public class MainActivity extends FragmentActivity {
 
                 item.setActionView(iv);
 */
+                setRefreshActionButtonState(true);
+
                 new UpdateTask(this).execute();
             break;
             case R.id.menu_options:
@@ -72,6 +74,19 @@ public class MainActivity extends FragmentActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setRefreshActionButtonState(final boolean refreshing) {
+        if (mymenu != null) {
+            final MenuItem refreshItem = mymenu.findItem(R.id.action_refresh);
+            if (refreshItem != null) {
+                if (refreshing) {
+                    refreshItem.setActionView(R.layout.actionbar_indeterminate_progress);
+                } else {
+                    refreshItem.setActionView(null);
+                }
+            }
+        }
     }
 
     public void resetUpdating() {
@@ -88,7 +103,8 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_CUSTOM);
+//        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
         ImageView imgDomusAlberti = (ImageView)findViewById(R.id.imgDomusAlberti);
         imgDomusAlberti.setImageResource(R.drawable.logo_domus_alberti);
