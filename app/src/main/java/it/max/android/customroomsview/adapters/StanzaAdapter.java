@@ -12,14 +12,21 @@ import android.widget.TextView;
 import java.util.List;
 
 import it.max.android.customroomsview.R;
+import it.max.android.customroomsview.data.DHT11Data;
 import it.max.android.customroomsview.model.Stanza;
 
 public class StanzaAdapter extends ArrayAdapter<Stanza> {
-    Context context;
     List<Stanza> listaStanze;
 
     public StanzaAdapter(Context context, List<Stanza> listaStanze) {
         super(context, R.layout.lista_stanze_data, listaStanze);
+
+        this.listaStanze = listaStanze;
+    }
+
+    public void setListaStanze(List<Stanza> listaStanze) {
+        this.listaStanze = listaStanze;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -51,6 +58,11 @@ public class StanzaAdapter extends ArrayAdapter<Stanza> {
             stanzaHolder.umidita.setText("" + stanza.getUmidita() + "%");
             stanzaHolder.imgUmidita.setImageResource(stanza.getImgUmidita());
         }
+
+        DHT11Data dht11Data = new DHT11Data();
+        listaStanze = dht11Data.creaDatiListaStanze();
+
+        notifyDataSetChanged();
 
         return convertView;
     }

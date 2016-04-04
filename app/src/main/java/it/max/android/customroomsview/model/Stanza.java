@@ -3,23 +3,23 @@ package it.max.android.customroomsview.model;
 import java.io.Serializable;
 
 public class Stanza implements Serializable {
-    private Integer    imgStanza;
-    private String temperatura;
-    private Integer    imgTemperatura;
-    private String umidita;
-    private Integer    imgUmidita;
+    private Integer imgStanza;
+    private String  temperatura;
+    private Integer imgTemperatura;
+    private String  umidita;
+    private Integer imgUmidita;
 
-    public Stanza(Integer    imgStanza,
-                  String temperatura,
-                  String umidita,
-                  Integer    imgTemperatura,
-                  Integer    imgUmidita) {
+    public Stanza(Integer imgStanza,
+                  String  temperatura,
+                  String  umidita,
+                  Integer imgTemperatura,
+                  Integer imgUmidita) {
         super();
-        this.imgStanza = imgStanza;
-        this.temperatura = temperatura;
-        this.umidita = umidita;
+        this.imgStanza      = imgStanza;
+        this.temperatura    = temperatura;
+        this.umidita        = umidita;
         this.imgTemperatura = imgTemperatura;
-        this.imgUmidita = imgUmidita;
+        this.imgUmidita     = imgUmidita;
     }
 
     public Integer getImgStanza() {

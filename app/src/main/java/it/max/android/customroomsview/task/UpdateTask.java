@@ -1,10 +1,9 @@
 package it.max.android.customroomsview.task;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.ListView;
+import android.util.Log;
 import android.widget.Toast;
 
 import it.max.android.customroomsview.R;
@@ -13,7 +12,6 @@ import it.max.android.customroomsview.fragments.ListaStanzeFragment;
 
 public class UpdateTask extends AsyncTask<Void, Void, Void> {
     private Context context;
-    ListView listaStanzeView;
 
     public UpdateTask(Context context) {
         this.context = context;
@@ -25,19 +23,21 @@ public class UpdateTask extends AsyncTask<Void, Void, Void> {
             FragmentManager fragmentManager = ((MainActivity) context).getFragmentManager();
 
             ListaStanzeFragment listaStanzeFragment = (ListaStanzeFragment) fragmentManager.findFragmentById(R.id.lista_stanze_fragment);
-            listaStanzeFragment.refreshListaStanzeView(context);
+            listaStanzeFragment.refreshListaStanzeView();
 
-            Thread.sleep(5000);
+            //TODO: Togliere in PRODUZIONE :P
+            //Thread.sleep(2000);
 
             return null;
         } catch (Exception e) {
+            Log.e("doInBackground", e.getMessage());
             return null;
         }
     }
 
     @Override
     protected void onPostExecute(Void nope) {
-        Toast.makeText(context, "Aggiornamento completato.", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Aggiornamento completato.", Toast.LENGTH_SHORT).show();
 
         ((MainActivity) context).setRefreshActionButtonState(false);
 //        ((MainActivity) context).resetUpdating();
