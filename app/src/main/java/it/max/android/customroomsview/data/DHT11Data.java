@@ -1,6 +1,8 @@
 package it.max.android.customroomsview.data;
 
+import android.content.Context;
 import android.os.StrictMode;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,6 +12,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import it.max.android.customroomsview.R;
+import it.max.android.customroomsview.activity.MainActivity;
 import it.max.android.customroomsview.constants.JSONConstants;
 import it.max.android.customroomsview.constants.RestConstants;
 import it.max.android.customroomsview.constants.ServerConnectionConstants;
@@ -27,7 +30,7 @@ public class DHT11Data {
 
     public DHT11Data() {}
 
-    public ArrayList<Stanza> creaDatiListaStanze() {
+    public ArrayList<Stanza> creaDatiListaStanze(Context context) {
         RelayData relayData = new RelayData();
 
         // AGGIUNGO UNA STANZA CHE E' L'UFFICIO

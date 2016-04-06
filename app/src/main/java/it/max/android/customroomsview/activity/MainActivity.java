@@ -7,31 +7,22 @@ import android.content.Context;
 import android.os.Bundle;
 
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.Menu;
 
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.util.Properties;
-
 import it.max.android.customroomsview.R;
 import it.max.android.customroomsview.fragments.ListaStanzeFragment;
-import it.max.android.customroomsview.task.UpdateTask;
 
 public class MainActivity extends FragmentActivity {
-    private static Context context;
+    private Context context;
 
-    private Properties properties = null;
+    private static Menu mymenu;
 
-    private Menu mymenu;
-    private MenuItem menuItem;
-
-    private Thread thread;
-
-    public static Context getLastSetContext() {
-        return context;
+    public Context getMainActivityContext() {
+        return this.context;
     }
 
     @Override
@@ -45,36 +36,12 @@ public class MainActivity extends FragmentActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-
-        context = getApplicationContext();
-
         switch(itemId) {
             case R.id.action_refresh:
-                Toast.makeText(context, "Aggiornamento in corso...", Toast.LENGTH_SHORT).show();
+                FragmentManager fragmentManager = this.getFragmentManager();
 
-                setRefreshActionButtonState(true);
-
-                thread = new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            synchronized(this){
-                                wait(3000);
-                            }
-                        }
-                        catch(InterruptedException ex){
-                        }
-
-                        FragmentManager fragmentManager = ((FragmentActivity)MainActivity.getLastSetContext()).getFragmentManager();
-
-                        ListaStanzeFragment listaStanzeFragment = (ListaStanzeFragment) fragmentManager.findFragmentById(R.id.lista_stanze_fragment);
-                        listaStanzeFragment.refreshListaStanzeView();
-
-                        setRefreshActionButtonState(false);
-                    }
-                };
-
-                thread.start();
+                ListaStanzeFragment listaStanzeFragment = (ListaStanzeFragment) fragmentManager.findFragmentById(R.id.lista_stanze_fragment);
+                listaStanzeFragment.refreshListaStanzeView();
             break;
             case R.id.menu_options:
                 Toast.makeText(context, "Apertura opzioni...", Toast.LENGTH_SHORT).show();
@@ -87,7 +54,7 @@ public class MainActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setRefreshActionButtonState(final boolean refreshing) {
+    public static void setRefreshActionButtonState(final boolean refreshing) {
         if (mymenu != null) {
             final MenuItem refreshItem = mymenu.findItem(R.id.action_refresh);
             if (refreshItem != null) {
