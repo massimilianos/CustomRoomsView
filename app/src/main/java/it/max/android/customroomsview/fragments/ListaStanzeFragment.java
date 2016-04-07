@@ -25,7 +25,7 @@ public class ListaStanzeFragment extends ListFragment implements AsyncResponse {
         MainActivity.setRefreshActionButtonState(true);
 //        Toast.makeText(getActivity(), "Aggiornamento in corso...", Toast.LENGTH_SHORT).show();
 
-        stanzaAdapter.clear();
+//        stanzaAdapter.clear();
 
         UpdateTask asyncTask = new UpdateTask(getActivity(), this);
         asyncTask.delegate = this;
